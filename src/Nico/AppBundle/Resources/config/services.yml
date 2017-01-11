@@ -1,0 +1,10 @@
+services:
+    nico_app.circuit_manager:
+        class: Nico\AppBundle\Service\CircuitManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@form.factory"
+            - "@mailer"
+            - "@templating"
+            - "@session"
+            - "@router"

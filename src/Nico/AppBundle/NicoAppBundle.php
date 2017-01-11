@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle;
+namespace Nico\AppBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class NicoAppBundle extends Bundle
 {
 }

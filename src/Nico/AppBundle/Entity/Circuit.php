@@ -1,0 +1,378 @@
+<?php
+
+namespace Nico\AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+* Circuit
+*
+* @ORM\Table(name="circuit")
+* @ORM\Entity
+*/
+class Circuit
+{
+    /**
+    * @ORM\Column(name="id", type="integer")
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="AUTO")
+    */
+    private $id;
+
+    /**
+    * @ORM\Column(name="creation_date", type="datetime")
+    * @Assert\DateTime()
+    */
+    private $date;
+
+    /**
+    * @ORM\Column(name="circuit_name", type="string")
+    * @Assert\Type(type="string")
+    */
+    private $name;
+
+    /**
+    * @ORM\Column(name="opening_hours", type="string")
+    * @Assert\Type(type="string")
+    */
+    private $hours;
+
+    /**
+    * @ORM\Column(name="licence", type="string")
+    * @Assert\Type(type="string")
+    */
+    private $licence;
+
+    /**
+    * @ORM\Column(name="description", type="string")
+    * @Assert\Type(type="string")
+    */
+    private $description;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Nico\AppBundle\Entity\Image", cascade={"persist"})
+    */
+    private $image;
+
+    /**
+    * @ORM\Column(name="latitude", type="string")
+    */
+    private $latitude;
+
+    /**
+    * @ORM\Column(name="longitude", type="string")
+    */
+    private $longitude;
+
+    /**
+    * @ORM\Column(name="is_valid", type="boolean")
+    * @Assert\Type(type="bool")
+    */
+    private $isValid;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Nico\AppBundle\Entity\Owner", cascade={"persist"}, inversedBy="circuits")
+    * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
+    */
+    private $owner;
+
+    /**
+     * @ORM\Column(name="address", type="string")
+     */
+    private $address;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->isValid = false;
+        $this->latitude = '0';
+        $this->longitude = '0';
+    }
+
+    public function activate()
+    {
+        $this->isValid = true;
+    }
+
+    public function disable()
+    {
+        $this->isValid = false;
+    }
+
+    /**
+    * Get id
+    *
+    * @return integer
+    */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+    * Set date
+    *
+    * @param \DateTime $date
+    *
+    * @return Circuit
+    */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+    * Get date
+    *
+    * @return \DateTime
+    */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+    * Set name
+    *
+    * @param string $name
+    *
+    * @return Circuit
+    */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+    * Get name
+    *
+    * @return string
+    */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+    * Set hours
+    *
+    * @param string $hours
+    *
+    * @return Circuit
+    */
+    public function setHours($hours)
+    {
+        $this->hours = $hours;
+
+        return $this;
+    }
+
+    /**
+    * Get hours
+    *
+    * @return string
+    */
+    public function getHours()
+    {
+        return $this->hours;
+    }
+
+    /**
+    * Set licence
+    *
+    * @param string $licence
+    *
+    * @return Circuit
+    */
+    public function setLicence($licence)
+    {
+        $this->licence = $licence;
+
+        return $this;
+    }
+
+    /**
+    * Get licence
+    *
+    * @return string
+    */
+    public function getLicence()
+    {
+        return $this->licence;
+    }
+
+    /**
+    * Set description
+    *
+    * @param string $description
+    *
+    * @return Circuit
+    */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+    * Get description
+    *
+    * @return string
+    */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+    * Set latitude
+    *
+    * @param string $latitude
+    *
+    * @return Circuit
+    */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+    * Get latitude
+    *
+    * @return string
+    */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+    * Set longitude
+    *
+    * @param string $longitude
+    *
+    * @return Circuit
+    */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+    * Get longitude
+    *
+    * @return string
+    */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+    * Set isValid
+    *
+    * @param boolean $isValid
+    *
+    * @return Circuit
+    */
+    public function setIsValid($isValid)
+    {
+        $this->isValid = $isValid;
+
+        return $this;
+    }
+
+    /**
+    * Get isValid
+    *
+    * @return boolean
+    */
+    public function getIsValid()
+    {
+        return $this->isValid;
+    }
+
+    /**
+    * Set image
+    *
+    * @param \Nico\AppBundle\Entity\Image $image
+    *
+    * @return Circuit
+    */
+    public function setImage(\Nico\AppBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+    * Get image
+    *
+    * @return \Nico\AppBundle\Entity\Image
+    */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+    * Set owner
+    *
+    * @param \Nico\AppBundle\Entity\Owner $owner
+    *
+    * @return Circuit
+    */
+    public function setOwner(\Nico\AppBundle\Entity\Owner $owner)
+    {
+        $this->owner = $owner;
+
+        $owner->addCircuit($this);
+
+        return $this;
+    }
+
+    /**
+    * Get owner
+    *
+    * @return \Nico\AppBundle\Entity\User
+    */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Circuit
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+}

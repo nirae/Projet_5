@@ -1,0 +1,57 @@
+<?php
+
+namespace Nico\AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+* Owner
+*
+* @ORM\Table(name="owner")
+* @ORM\Entity
+*/
+class Owner
+{
+    /**
+    * @ORM\Column(name="id", type="integer")
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="AUTO")
+    */
+    private $id;
+
+    /**
+    * @ORM\Column(name="creation_date", type="datetime")
+    * @Assert\NotBlank()
+    * @Assert\DateTime()
+    */
+    private $date;
+
+    /**
+    * @ORM\Column(name="owner_name", type="string")
+    * @Assert\NotBlank()
+    * @Assert\Type(type="string")
+    */
+    private $name;
+
+    /**
+    * @ORM\Column(name="owner_firstname", type="string")
+    * @Assert\NotBlank()
+    * @Assert\Type(type="string")
+    */
+    private $firstName;
+
+    /**
+    * @ORM\Column(name="email", type="string")
+    * @Assert\NotBlank()
+    * @Assert\Email()
+    */
+    private $email;
+
+    /**
+    * @ORM\Column(name="phone_number", type="integer")
+    * @Assert\NotBlank()
+    * @Assert\Type(type="integer")
+    */
+    private $phoneNumber;
+}

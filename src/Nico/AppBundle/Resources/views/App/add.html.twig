@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add</title>
+</head>
+<body>
+    {% for flash_message in app.session.flashBag.get('notice') %}
+    <div class="alert alert-info">
+        {{ flash_message }}
+    </div>
+    {% endfor %}
+    <h1>
+        add
+    </h1>
+    {{ form_start(form, {'action': path('nico_app_add'), 'method': 'POST'}) }}
+    {{ form_errors(form) }}
+    <input type="submit" id="nico_appbundle_circuit_save" class="btn btn-default" value="Valider">
+    {{ form_end(form) }}
+</body>
+</html>

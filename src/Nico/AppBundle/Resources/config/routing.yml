@@ -1,0 +1,15 @@
+nico_app_homepage:
+    path:     /
+    defaults: { _controller: NicoAppBundle:App:index }
+
+nico_app_add:
+    path: /ajouter
+    defaults: { _controller: NicoAppBundle:App:add }
+
+nico_app_fiche:
+    path: /circuit/{id}
+    defaults: { _controller: NicoAppBundle:App:fiche }
+
+nico_app_confirmation:
+    path: /confirmation/{id}-{name}
+    defaults: { _controller: NicoAppBundle:App:confirmation }

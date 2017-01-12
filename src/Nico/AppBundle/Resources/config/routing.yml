@@ -2,6 +2,10 @@ nico_app_homepage:
     path:     /
     defaults: { _controller: NicoAppBundle:App:index }
 
+nico_app_ajax:
+    path: /ajax
+    defaults: { _controller: NicoAppBundle:App:ajax }
+
 nico_app_add:
     path: /ajouter
     defaults: { _controller: NicoAppBundle:App:add }

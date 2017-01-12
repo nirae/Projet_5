@@ -13,9 +13,7 @@ class AppController extends Controller
      */
     public function indexAction()
     {
-        $circuits = $this->get('nico_app.circuit_manager')->index();
-
-        return array('circuits' => $circuits);
+        return;
     }
 
     /**
@@ -35,13 +33,16 @@ class AppController extends Controller
     {
         $circuit = $this->get('nico_app.circuit_manager')->displayCircuit($id);
 
-        dump($circuit);
-
         return array('circuit' => $circuit);
     }
 
     public function confirmationAction($id, $name)
     {
         return $this->get('nico_app.circuit_manager')->confirmation($id, $name);
+    }
+
+    public function ajaxAction(Request $request)
+    {
+        return $this->get('nico_app.circuit_manager')->ajaxPost($request);
     }
 }

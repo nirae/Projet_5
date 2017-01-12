@@ -86,8 +86,6 @@ class Circuit
     {
         $this->date = new \DateTime();
         $this->isValid = false;
-        $this->latitude = '0';
-        $this->longitude = '0';
     }
 
     public function activate()

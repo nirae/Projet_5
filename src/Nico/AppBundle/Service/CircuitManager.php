@@ -25,13 +25,13 @@ class CircuitManager
     private $session;
     private $router;
 
-    public function __construct(
-        EntityManager $em,
-        FormFactory $formfactory,
-        \Swift_Mailer $mailer,
-        TwigEngine $templating,
-        Session $session,
-        $router
+        public function __construct(
+            EntityManager $em,
+            FormFactory $formfactory,
+            \Swift_Mailer $mailer,
+            TwigEngine $templating,
+            Session $session,
+            $router
         )
         {
             $this->em = $em;
@@ -42,16 +42,6 @@ class CircuitManager
             $this->router = $router;
         }
 
-        public function index()
-        {
-            $repository = $this->em->getRepository('NicoAppBundle:Circuit');
-
-            $circuits = $repository->findBy(array('isValid' => true));
-
-            dump($circuits);
-
-            return $circuits;
-        }
 
         public function addForm(Request $request)
         {
@@ -134,6 +124,47 @@ class CircuitManager
                     // Redirection
                     $response = new RedirectResponse('/');
                     $response->send();
+                }
+            }
+        }
+
+        public function ajaxPost(Request $request)
+        {
+            if ($request->isMethod('POST')) {
+                // Récupère le status envoyé via ajax
+                $status = $request->get('status');
+                if ($status === 'load') {
+                    //Récupère les circuits
+                    $repository = $this->em->getRepository('NicoAppBundle:Circuit');
+                    $circuits = $repository->findBy(array('isValid' => true));
+                    // Si il n'y a pas de circuits
+                    if (count($circuits) === 0) {
+                        return new JsonResponse(array(
+                            'rep' => false,
+                        ));
+                    }
+                    // Si c'est bon
+                    $listCircuits = array();
+                    foreach ($circuits as $c) {
+                        $listCircuits[] = array(
+                            'id' => $c->getId(),
+                            'name' => $c->getName(),
+                            'hours' => $c->getHours(),
+                            'licence' => $c->getLicence(),
+                            'phone' => $c->getOwner()->getPhoneNumber(),
+                            'email' => $c->getOwner()->getEmail(),
+                            'latitude' => $c->getLatitude(),
+                            'longitude' => $c->getLongitude(),
+                        );
+                    }
+
+                    return new JsonResponse(array(
+                        'rep' => $listCircuits,
+                    ));
+                } else {
+                    return new JsonResponse(array(
+                        'rep' => false,
+                    ));
                 }
             }
         }

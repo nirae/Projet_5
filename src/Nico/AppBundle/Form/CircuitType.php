@@ -60,7 +60,7 @@ class CircuitType extends AbstractType
                     )),
                 ),
             ))
-            /*->add('latitude', TextType::class, array(
+            ->add('latitude', TextType::class, array(
                 'label_attr' => array(
                     'hidden' => '',
                 ),
@@ -85,11 +85,8 @@ class CircuitType extends AbstractType
                     'pattern' => '/[0-9*]/',
                     'message' => 'Ne correspond pas a des coordonnées',
                 )),
-            ))*/
+            ))
             ->add('address', TextType::class, array(
-                'attr' => array(
-                    'id' => 'adresse',
-                ),
                 'constraints' => array(
                     new Assert\Type('string'),
                 )

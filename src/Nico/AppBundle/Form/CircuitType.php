@@ -66,6 +66,7 @@ class CircuitType extends AbstractType
                 ),
                 'attr' => array(
                     'id' => 'latitude',
+                    'class' => 'hidden',
                     'hidden' => '',
                 ),
                 'constraints' => new Assert\Regex(array(
@@ -79,6 +80,7 @@ class CircuitType extends AbstractType
                 ),
                 'attr' => array(
                     'id' => 'longitude',
+                    'class' => 'hidden',
                     'hidden' => '',
                 ),
                 'constraints' => new Assert\Regex(array(
@@ -87,6 +89,9 @@ class CircuitType extends AbstractType
                 )),
             ))
             ->add('address', TextType::class, array(
+                'attr' => array(
+                    'class' => 'controls',
+                ),
                 'constraints' => array(
                     new Assert\Type('string'),
                 )

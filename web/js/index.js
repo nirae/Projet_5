@@ -1,4 +1,5 @@
 var input = document.getElementById('adresse');
+var geoloc = document.querySelector("#geoloc");
 var map;
 var markers = [];
 var infos = [];
@@ -10,7 +11,9 @@ function initMap() {
         zoom: 5
     });
     // Formulaire dans la map
-    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Geoloc dans la map
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(geoloc);
     // Récupere les circuits en Ajax
     $.post('/ajax',
     {status: 'load' },
@@ -44,7 +47,7 @@ function initMap() {
         setMapPos(place.geometry.location);
     });
     // Si clic sur le bouton de geoloc
-    document.querySelector("#geoloc").addEventListener("click", function(e) {
+    geoloc.addEventListener("click", function(e) {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(function(pos) {
                 setMapPos({lat: pos.coords.latitude, lng: pos.coords.longitude});

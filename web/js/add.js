@@ -1,6 +1,7 @@
 var input = document.getElementById('nico_appbundle_circuit_address');
 var latitudeElem = document.getElementById('nico_appbundle_circuit_latitude');
 var longitudeElem = document.getElementById('nico_appbundle_circuit_longitude');
+var geoloc = document.querySelector("#geoloc");
 
 function initMap() {
     // Map
@@ -9,7 +10,9 @@ function initMap() {
         zoom: 5
     });
     // Formulaire dans la map
-    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Geoloc dans la map
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(geoloc);
     // Autocomplete
     var autocomplete = new google.maps.places.Autocomplete(input, {componentRestrictions: {country: 'fr'}});
     autocomplete.bindTo('bounds', map);
@@ -67,7 +70,7 @@ function initMap() {
         });
     });
     // Si clic sur le bouton de geoloc
-    document.querySelector("#geoloc").addEventListener("click", function(e) {
+    geoloc.addEventListener("click", function(e) {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(function(pos) {
                 latitudeElem.value = pos.coords.latitude;

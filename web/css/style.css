@@ -1,0 +1,104 @@
+/*************************************
+        GENERAL
+*************************************/
+body {
+    font-family: Roboto;
+}
+
+footer {
+    /*border-top: 1px solid #4CAF50;*/
+    height: 150px;
+    background: #FF9800;
+    color: #fff;
+    padding: 40px;
+    margin-top: 60px;
+}
+.page {
+    min-height: 80vh;
+}
+.contenu {
+    background-color: #fff;
+    padding: 40px;
+    margin-top : 50px;
+}
+
+.lien-layout {
+    margin-top: 40px;
+    margin-right: 40px;
+    margin-left: auto;
+}
+
+/*.logo-home {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: auto;
+    height: 50px;
+    width: 100px;
+    background: #fff;
+}*/
+
+.lien-layout .btn {
+    background: rgba(0, 0, 0, 0.05);
+    color: #ffffff;
+    border: 2px solid #4CAF50;
+    padding: 5px 20px;
+    border-radius: 30px;
+}
+
+.lien-layout .btn:hover, .lien-layout .btn:active {
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 5px 20px;
+    border-radius: 30px;
+}
+
+/*************************************
+        MAP
+*************************************/
+.map-add, .map-index {
+    width: 100%;
+    height: 400px;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#nico_appbundle_circuit_address, #adresse {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 50%;
+}
+
+#nico_appbundle_circuit_address:focus, #adresse:focus {
+    border-color: #4d90fe;
+}
+
+#geoloc {
+  color: #fff;
+  background-color: #4d90fe;
+  border-radius: 0px 2px 2px 0px;
+  width: 32px;
+  padding: 0;
+}
+
+#geoloc:hover {
+    color: #4d90fe;
+    background-color: #fff;
+}
+
+/*************************************
+        ADD
+*************************************/

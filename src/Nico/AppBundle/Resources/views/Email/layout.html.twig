@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style media="screen">
+        .fond {
+            background: #FF9800;
+            padding: 40px;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            color: #333;
+        }
+        a {
+            color: #4CAF50;
+        }
+        a:hover {
+            color: #4CAF50;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .red {
+            color: #C82D00;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="fond">
+            <div class="container">
+                {% block contenu %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

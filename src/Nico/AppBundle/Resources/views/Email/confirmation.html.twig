@@ -1,2 +1,9 @@
-<p>{{ circuit.name }}</p>
-<a href="{{ link }}">{{ link }}</a>
+{% extends 'NicoAppBundle:Email:layout.html.twig' %}
+{% block contenu %}
+<h1>Confirmation d'inscription de votre circuit</h1>
+<h3>{{ circuit.name }}</h3>
+<p>
+    Pour finaliser l'inscription de votre circuit, veuillez le confirmer en cliquant <a href="{{ link}}">ici</a>
+    ou en collant dans votre navigateur le lien suivant : <a href="{{ link }}">{{ link }}</a>
+</p>
+{% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'NicoAppBundle:App:layout.html.twig' %}
 {% block title %}{{ parent() }} Ajouter{% endblock %}
+{% block linkleft %}<a class="btn btn-default" href="/"><span class="fa fa-hand-o-left"></span> Aller à l'accueil</a>{% endblock %}
+
 {# Contenu #}
 {% block contenu %}
 {% for flash_message in app.session.flashBag.get('notice') %}

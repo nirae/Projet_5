@@ -89,7 +89,7 @@ function initMap() {
         '<p>Horaires: '+ hours +'</p>'+
         '<p>Licence(s) acceptée(s): '+ licence +'</p>'+
         '<h3>Contact: </h3>'+
-        '<p>Téléphone: '+ phone +'</p>'+
+        '<p>Téléphone: 0'+ phone +'</p>'+
         '<p>Email: '+ email +'</p>'+
         '<p><a href="/circuit/'+ id +'">Voir la fiche du terrain <span class="fa fa-hand-o-right"></span></a></p>'+
         '</div>'+

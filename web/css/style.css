@@ -2,12 +2,11 @@
         GENERAL
 *************************************/
 body {
-    font-family: Roboto;
+    /*font-family: Roboto;*/
 }
 
 footer {
     /*border-top: 1px solid #4CAF50;*/
-    height: 150px;
     background: #FF9800;
     color: #fff;
     padding: 40px;
@@ -23,9 +22,7 @@ footer {
 }
 
 .lien-layout {
-    margin-top: 40px;
-    margin-right: 40px;
-    margin-left: auto;
+    margin-top: 20px;
 }
 
 /*.logo-home {
@@ -38,7 +35,7 @@ footer {
 }*/
 
 .lien-layout .btn {
-    background: rgba(0, 0, 0, 0.05);
+    background: #4CAF50;
     color: #ffffff;
     border: 2px solid #4CAF50;
     padding: 5px 20px;
@@ -46,18 +43,38 @@ footer {
 }
 
 .lien-layout .btn:hover, .lien-layout .btn:active {
-    color: #ffffff;
-    border: 2px solid #ffffff;
+    color: #4CAF50;
+    background: #fff;
+    border: 2px solid #4CAF50;
     padding: 5px 20px;
     border-radius: 30px;
 }
 
+label, input[type=file] {
+    margin-left: 20px;
+}
+
+.form-control {
+    border-radius: 30px;
+    padding: 5px 20px;
+}
 /*************************************
         MAP
 *************************************/
-.map-add, .map-index {
+.map-add, .map-index, .map-fiche {
     width: 100%;
+}
+
+.map-add {
     height: 400px;
+}
+
+.map-index {
+    height: 60vh;
+}
+
+.map-fiche {
+    height: 40vh;
 }
 
 .controls {
@@ -102,3 +119,52 @@ footer {
 /*************************************
         ADD
 *************************************/
+.titre {
+    margin-bottom: 40px;
+}
+
+.bloc-form .row {
+    margin-top: 20px;
+}
+
+.bloc-form .btn {
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+    padding: 5px 20px;
+    border-radius: 30px;
+}
+
+.bloc-form .btn:hover, .bloc-form .btn:active {
+    background: #4CAF50;
+    color: #ffffff;
+}
+
+.description textarea.form-control {
+    height: 250px;
+}
+
+/*************************************
+        FICHE
+*************************************/
+
+.bloc-image {
+    background: #ecf0f1;
+    padding: 40px;
+}
+
+.bloc-image img {
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.bloc-fiche .row {
+    margin-top: 20px;
+}
+
+.fiche-description p {
+    background: #ecf0f1;
+    padding: 20px;
+    width: auto;
+}

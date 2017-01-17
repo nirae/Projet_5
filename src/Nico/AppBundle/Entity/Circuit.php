@@ -45,7 +45,7 @@ class Circuit
     private $licence;
 
     /**
-    * @ORM\Column(name="description", type="string")
+    * @ORM\Column(name="description", type="text")
     * @Assert\Type(type="string")
     */
     private $description;

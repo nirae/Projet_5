@@ -87,6 +87,10 @@ class CircuitManager
         {
             $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
 
+            if ($circuit === null) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
+
             if (!$circuit->getIsValid()) {
                 throw new NotFoundHttpException('Ce circuit n\' pas été validé par son responsable');
             }

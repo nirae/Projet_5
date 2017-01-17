@@ -30,7 +30,7 @@ class CircuitType extends AbstractType
                     )),
                 ),
             ))
-            ->add('hours', TextareaType::class, array(
+            ->add('hours', TextType::class, array(
                 'label' => 'Horaires/Jours d\'ouverture',
                 'constraints' => array(
                     new Assert\Type('string'),
@@ -39,8 +39,11 @@ class CircuitType extends AbstractType
                         'maxMessage' => '100 caractères maximum',
                     )),
                 ),
+                'attr' => array(
+                    'placeholder' => 'ex: Du lundi au vendredi à partir de 14h',
+                ),
             ))
-            ->add('licence', TextareaType::class, array(
+            ->add('licence', TextType::class, array(
                 'label' => 'Licence(s) acceptées',
                 'constraints' => array(
                     new Assert\Type('string'),
@@ -49,15 +52,14 @@ class CircuitType extends AbstractType
                         'maxMessage' => '50 caractères maximum',
                     )),
                 ),
+                'attr' => array(
+                    'placeholder' => 'FFM, UFOLEP...',
+                ),
             ))
             ->add('description', TextareaType::class, array(
                 'label' => 'Description',
                 'constraints' => array(
                     new Assert\Type('string'),
-                    new Assert\Length(array(
-                        'max' => 500,
-                        'maxMessage' => '500 caractères maximum',
-                    )),
                 ),
             ))
             ->add('latitude', TextType::class, array(
@@ -89,8 +91,10 @@ class CircuitType extends AbstractType
                 )),
             ))
             ->add('address', TextType::class, array(
+                'label' => 'Adresse',
                 'attr' => array(
                     'class' => 'controls',
+                    'placeholder' => 'Entrez l\'adresse ici...',
                 ),
                 'constraints' => array(
                     new Assert\Type('string'),

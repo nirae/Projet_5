@@ -10,15 +10,17 @@
 <div id="error" class="alert alert-danger text-center" style="display: none">
     Erreur lors de la géolocalisation. Réessayez en actualisant la page ou choisissez votre position manuellement.
 </div>
-<p>
-    index
-</p>
+<h1 class="text-center">Bienvenue sur "Mon Spot" !</h1>
+<p class="text-center">Ici, vous pouvez trouvez les terrains de motocross près de chez vous facilement. Ceci est la première version du site, elle s'ameliorera au fur et à mesure du temps!</p>
 <div class="bloc-map">
-    <input type="text" id="adresse" class="controls" name="adresse" value="">
+    <input type="text" id="adresse" class="controls" name="adresse" value="" placeholder="Entrez votre adresse...">
     <button type="button" id="geoloc" class="controls" name="geoloc">
         <span class="fa fa-globe fa-2x"></span>
     </button>
     <div id="map" class="map-index"></div>
+    <p class="text-center">
+        <em>Affichez les terrains près de chez vous en indiquant votre adresse ou en vous géolocalisant grâce au bouton <span class="fa fa-globe"></span></em>
+    </p>
 </div>
 {# End Contenu #}
 {% endblock %}

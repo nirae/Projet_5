@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -45,14 +46,13 @@ class OwnerType extends AbstractType
                 'label' => 'Email',
                 'constraints' => new Assert\NotBlank(),
             ))
-            ->add('phoneNumber', TextType::class, array(
+            ->add('phoneNumber', NumberType::class, array(
                 'label' => 'Téléphone',
                 'constraints' => array(
                     new Assert\Regex(array(
                         'pattern' => '/[0-9{10}]/',
                         'message' => 'Ne correspond pas a un numéro de téléphone',
                     )),
-                    new Assert\NotBlank(),
                 ),
             ))
         ;

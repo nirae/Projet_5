@@ -7,7 +7,7 @@ function initMap() {
     // Map
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.46813299215553, lng: 2.57080078125},
-        scroll: false,
+        scrollwheel: false,
         zoom: 5
     });
     // Formulaire dans la map

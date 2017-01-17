@@ -25,15 +25,6 @@ footer {
     margin-top: 20px;
 }
 
-/*.logo-home {
-    margin-top: 40px;
-    margin-left: 40px;
-    margin-right: auto;
-    height: 50px;
-    width: 100px;
-    background: #fff;
-}*/
-
 .lien-layout .btn {
     background: #4CAF50;
     color: #ffffff;
@@ -61,8 +52,11 @@ label, input[type=file] {
 /*************************************
         MAP
 *************************************/
-.map-add, .map-index, .map-fiche {
-    width: 100%;
+@media all and (max-width: 1024px) {
+    .map-add, .map-index, .map-fiche {
+        margin-left: -35px;
+        margin-right: -35px;
+    }
 }
 
 .map-add {
@@ -153,7 +147,7 @@ label, input[type=file] {
 }
 
 .bloc-image img {
-    height: 300px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     display: block;

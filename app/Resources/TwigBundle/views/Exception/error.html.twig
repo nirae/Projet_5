@@ -1,0 +1,9 @@
+{% extends 'NicoAppBundle:App:layout.html.twig' %}
+{% block title %}{{ parent() }} {{ status_text }}{% endblock %}
+{% block contenu %}
+    <h1 class="text-center">Erreur !</h1>
+    <p class="text-center">La serveur à retourné une erreur : "{{ status_code }} {{ status_text }}".</p>
+    <div id="lien-accueil">
+        <a href="/"><span class="fa fa-hand-o-left"></span> Aller à l'accueil</a>
+    </div>
+{% endblock %}

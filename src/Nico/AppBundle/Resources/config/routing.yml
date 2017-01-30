@@ -17,3 +17,19 @@ nico_app_fiche:
 nico_app_confirmation:
     path: /confirmation/{id}-{name}
     defaults: { _controller: NicoAppBundle:App:confirmation }
+
+nico_app_check_update:
+    path: /circuit/checkupdate/{id}-{email}
+    defaults: { _controller: NicoAppBundle:App:checkUpdate }
+
+nico_app_page_update:
+    path: /circuit/confirmationupdate/{id}-{email}-{token}
+    defaults: { _controller: NicoAppBundle:App:pageUpdate }
+
+nico_app_check_delete:
+    path: /circuit/checkdelete/{id}-{email}
+    defaults: { _controller: NicoAppBundle:App:checkDelete }
+
+nico_app_confirmation_delete:
+    path: /circuit/confirmationdelete/{id}-{email}-{token}
+    defaults: { _controller: NicoAppBundle:App:confirmationDelete }

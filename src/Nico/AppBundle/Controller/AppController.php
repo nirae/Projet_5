@@ -32,8 +32,14 @@ class AppController extends Controller
     public function ficheAction($id)
     {
         $circuit = $this->get('nico_app.circuit_manager')->displayCircuit($id);
+        $updateLink = $this->get('nico_app.circuit_manager')->getUpdateLink($id);
+        $deleteLink = $this->get('nico_app.circuit_manager')->getDeleteLink($id);
 
-        return array('circuit' => $circuit);
+        return array(
+            'circuit' => $circuit,
+            'updateLink' => $updateLink,
+            'deleteLink' => $deleteLink
+        );
     }
 
     public function confirmationAction($id, $name)
@@ -44,5 +50,30 @@ class AppController extends Controller
     public function ajaxAction(Request $request)
     {
         return $this->get('nico_app.circuit_manager')->ajaxPost($request);
+    }
+
+    public function checkUpdateAction($id, $email)
+    {
+        return $this->get('nico_app.circuit_manager')->checkUpdateLink($id, $email);
+    }
+
+    /**
+     * @Template("NicoAppBundle:App:update.html.twig")
+     */
+    public function pageUpdateAction($id, $email, $token, Request $request)
+    {
+        $form = $this->get('nico_app.circuit_manager')->pageUpdate($id, $email, $token, $request);
+
+        return array('form' => $form);
+    }
+
+    public function checkDeleteAction($id, $email)
+    {
+        return $this->get('nico_app.circuit_manager')->checkDeleteLink($id, $email);
+    }
+
+    public function confirmationDeleteAction($id, $email, $token)
+    {
+        return $this->get('nico_app.circuit_manager')->confirmationDelete($id, $email, $token);
     }
 }

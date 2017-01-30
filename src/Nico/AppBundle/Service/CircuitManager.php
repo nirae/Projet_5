@@ -25,13 +25,13 @@ class CircuitManager
     private $session;
     private $router;
 
-        public function __construct(
-            EntityManager $em,
-            FormFactory $formfactory,
-            \Swift_Mailer $mailer,
-            TwigEngine $templating,
-            Session $session,
-            $router
+    public function __construct(
+        EntityManager $em,
+        FormFactory $formfactory,
+        \Swift_Mailer $mailer,
+        TwigEngine $templating,
+        Session $session,
+        $router
         )
         {
             $this->em = $em;
@@ -86,6 +86,9 @@ class CircuitManager
         public function displayCircuit($id)
         {
             $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
 
             if ($circuit === null) {
                 throw new NotFoundHttpException('Ce circuit n\'existe pas');
@@ -102,6 +105,9 @@ class CircuitManager
         {
             //Récupère le circuit
             $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
             // Si le circuit est déjà activé
             if ($circuit->getIsValid() === true) {
                 // Flash message
@@ -170,6 +176,200 @@ class CircuitManager
                         'rep' => false,
                     ));
                 }
+            }
+        }
+
+        public function getUpdateLink($id)
+        {
+            // Récupération du circuit
+            $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
+            // Création lien de confirmation
+            $link = $this->router->generate(
+                'nico_app_check_update',
+                array(
+                    'id' => $circuit->getId(),
+                    'email' => $circuit->getOwner()->getEmail()
+                ),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+            return $link;
+        }
+
+        public function checkUpdateLink($id, $ownerEmail)
+        {
+            // Récupération du propriétaire du circuit
+            $owner = $this->em->getRepository("NicoAppBundle:Owner")->findOneBy(array('email' => $ownerEmail));
+            $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
+
+            // Création du lien de la page de modif
+            $link = $this->router->generate(
+                'nico_app_page_update',
+                array(
+                    'id' => $id,
+                    'email' => $owner->getEmail(),
+                    'token' => $owner->getToken()
+                ),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+            // Envoi de l'email
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Demande de modification de votre circuit')
+            ->setFrom('monspot@nicolasdubouilh.fr')
+            ->setTo($ownerEmail)
+            ->setBody(
+                $this->templating->render('NicoAppBundle:Email:update.html.twig', array(
+                    'link' => $link,
+                    'owner' => $owner,
+                    'circuit' => $circuit
+                )),
+                'text/html'
+            );
+            // Envoi du message
+            $this->mailer->send($message);
+            // Flash message
+            $this->session->getFlashBag()->add('notice', 'Votre demande de modification vous à été envoyée par email');
+            // Redirection
+            $response = new RedirectResponse('/circuit/' . $id);
+            $response->send();
+        }
+
+        public function pageUpdate($id, $email, $token, Request $request) {
+
+            $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
+
+            if ($email === $circuit->getOwner()->getEmail() && $token === $circuit->getOwner()->getToken()) {
+
+                $form = $this->formfactory->create(CircuitType::class, $circuit);
+
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    // Flush
+                    $this->em->persist($circuit);
+                    $this->em->flush();
+                    // Création lien de confirmation
+                    $link = $this->router->generate(
+                        'nico_app_confirmation',
+                        array(
+                            'id' => $circuit->getId(),
+                            'name' => $circuit->getName(),
+                        ),
+                        UrlGeneratorInterface::ABSOLUTE_URL
+                    );
+                    // Envoyer mail de confirmation
+                    $message = \Swift_Message::newInstance()
+                    ->setSubject('Confirmation de modification de votre circuit')
+                    ->setFrom('monspot@nicolasdubouilh.fr')
+                    ->setTo($email)
+                    ->setBody(
+                        $this->templating->render('NicoAppBundle:Email:confirmationUpdate.html.twig', array(
+                            'link' => $link,
+                            'circuit' => $circuit,
+                        )),
+                        'text/html'
+                    );
+                    // Envoi du message
+                    $this->mailer->send($message);
+                    // Flash message
+                    $this->session->getFlashBag()->add('notice', 'Le circuit à bien été modifié');
+                    // Redirection
+                    $response = new RedirectResponse('/circuit/' . $id);
+                    $response->send();
+                }
+
+                return $form->createView();
+
+            } else {
+                throw new NotFoundHttpException('Erreur');
+            }
+
+
+        }
+
+        public function getDeleteLink($id)
+        {
+            // Récupération du circuit
+            $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            // Création lien de confirmation
+            $link = $this->router->generate(
+                'nico_app_check_delete',
+                array(
+                    'id' => $circuit->getId(),
+                    'email' => $circuit->getOwner()->getEmail()
+                ),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+            return $link;
+        }
+
+        public function checkDeleteLink($id, $ownerEmail)
+        {
+            // Récupération du propriétaire du circuit
+            $owner = $this->em->getRepository("NicoAppBundle:Owner")->findOneBy(array('email' => $ownerEmail));
+            $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
+            // Création du lien de la page de modif
+            $link = $this->router->generate(
+                'nico_app_confirmation_delete',
+                array(
+                    'id' => $circuit->getId(),
+                    'email' => $owner->getEmail(),
+                    'token' => $owner->getToken()
+                ),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+            // Envoi de l'email
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Demande de suppression de votre circuit')
+            ->setFrom('monspot@nicolasdubouilh.fr')
+            ->setTo($ownerEmail)
+            ->setBody(
+                $this->templating->render('NicoAppBundle:Email:delete.html.twig', array(
+                    'link' => $link,
+                    'owner' => $owner,
+                    'circuit' => $circuit
+                )),
+                'text/html'
+            );
+            // Envoi du message
+            $this->mailer->send($message);
+            // Flash message
+            $this->session->getFlashBag()->add('notice', 'Votre demande de suppression vous à été envoyée par email');
+            // Redirection
+            $response = new RedirectResponse('/circuit/' . $id);
+            $response->send();
+        }
+
+        public function confirmationDelete($id, $email, $token)
+        {
+            $circuit = $this->em->getRepository("NicoAppBundle:Circuit")->find($id);
+
+            if (!$circuit) {
+                throw new NotFoundHttpException('Ce circuit n\'existe pas');
+            }
+
+            if ($email === $circuit->getOwner()->getEmail() && $token === $circuit->getOwner()->getToken()) {
+                // Suppression
+                $this->em->remove($circuit);
+                $this->em->flush();
+                // Flash message
+                $this->session->getFlashBag()->add('notice', 'Votre circuit à bien été supprimé');
+                // Redirection
+                $response = new RedirectResponse('/');
+                $response->send();
+
+            } else {
+                throw new NotFoundHttpException('Erreur');
             }
         }
     }

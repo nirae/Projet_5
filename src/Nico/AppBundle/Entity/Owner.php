@@ -56,10 +56,16 @@ class Owner
     */
     private $circuits;
 
+    /**
+     * @ORM\Column(name="token", type="string")
+     */
+    private $token;
+
     public function __construct()
     {
         $this->date = new \DateTime();
         $this->circuits = new ArrayCollection();
+        $this->token = uniqid('', true);
     }
 
     /**
@@ -224,5 +230,29 @@ class Owner
     public function getCircuits()
     {
         return $this->circuits;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return Owner
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

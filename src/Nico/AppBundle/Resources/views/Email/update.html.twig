@@ -1,0 +1,14 @@
+{% extends 'NicoAppBundle:Email:layout.html.twig' %}
+{% block contenu %}
+<h1>Demande de modificationd e votre circuit</h1>
+<h3>{{ circuit.name }}</h3>
+<p>
+    Cher {{ owner.name|title }} {{ owner.firstName|title }},
+</p>
+<p>
+    Pour effectuer les modifications souhaitées sur la fiche de votre circuit, cliquez <a href="{{ link }}">ici</a>
+</p>
+<p>
+    Si vous ne comprenez pas pourquoi vous recevez cet email, contactez l'administrateur a l'adresse suivante : ndubouilh@gmail.com
+</p>
+{% endblock %}

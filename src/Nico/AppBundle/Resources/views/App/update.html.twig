@@ -1,0 +1,129 @@
+{% extends 'NicoAppBundle:App:layout.html.twig' %}
+{% block title %}{{ parent() }} Modifier{% endblock %}
+{% block linkleft %}<a class="btn btn-default" href="/"><span class="fa fa-hand-o-left"></span> Aller à l'accueil</a>{% endblock %}
+
+{# Contenu #}
+{% block contenu %}
+{% for flash_message in app.session.flashBag.get('notice') %}
+<div class="alert alert-info">
+    {{ flash_message }}
+</div>
+{% endfor %}
+<div id="error" class="alert alert-danger text-center" style="display: none">
+    Erreur lors de la géolocalisation. Réessayez en actualisant la page ou choisissez votre position manuellement.
+</div>
+<div class="titre">
+    <h1 class="text-center">
+        Modifier votre circuit
+    </h1>
+    <p class="text-center">
+        Veuillez remplir le formulaire ci dessous en étant le plus exact possible
+    </p>
+</div>
+<div class="bloc-form">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(form.licence) }}
+            {{ form_errors(form.licence) }}
+            {{ form_widget(form.licence) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_label(form.hours) }}
+            {{ form_errors(form.hours) }}
+            {{ form_widget(form.hours) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {# Hidden #}
+            {{ form_label(form.latitude) }}
+            {{ form_errors(form.latitude) }}
+            {{ form_widget(form.latitude) }}
+            {{ form_label(form.longitude) }}
+            {{ form_errors(form.longitude) }}
+            {{ form_widget(form.longitude) }}
+            {# End Hidden #}
+            <div class="alert alert-info">
+                <p>Vous pouvez entrer votre adresse directement dans la barre, ou vous géolocaliser en cliquant sur le bouton globe <span class="fa fa-globe"></span></p>
+                <p>
+                    Il est également possible de cliquer à un endroit voulu
+                    sur la carte pour y afficher le marqueur et ainsi choisir votre adresse.
+                </p>
+                <p>
+                    Le marqueur indiquant votre adresse sur la carte est déplaçable en cas d'erreur ou pour affiner.
+                </p>
+            </div>
+            {{ form_label(form.address) }}
+            {{ form_errors(form.address) }}
+            {{ form_widget(form.address) }}
+            <div class="bloc-map">
+                <button type="button" id="geoloc" class="controls" name="geoloc">
+                    <span class="fa fa-globe fa-2x"></span>
+                </button>
+                <div id="map" class="map-add"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 description">
+            {{ form_label(form.description) }}
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_label(form.image) }}
+            {{ form_errors(form.image) }}
+            {{ form_widget(form.image) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(form.owner.name) }}
+            {{ form_errors(form.owner.name) }}
+            {{ form_widget(form.owner.name) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(form.owner.firstName) }}
+            {{ form_errors(form.owner.firstName) }}
+            {{ form_widget(form.owner.firstName) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_label(form.owner.email) }}
+            {{ form_errors(form.owner.email) }}
+            {{ form_widget(form.owner.email) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(form.owner.phoneNumber) }}
+            {{ form_errors(form.owner.phoneNumber) }}
+            {{ form_widget(form.owner.phoneNumber) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" id="nico_appbundle_circuit_save" class="btn btn-default" value="Valider le formulaire">
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{# End Contenu #}
+{% endblock %}
+{# Javascript #}
+{% block javascripts %}
+<script src="{{ asset('js/update.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0kpgqFBKDY2mmNCRDuRGWqzUBPi9PiK4&signed_in=true&libraries=places&callback=initMap"
+async defer></script>
+{# End Javascript #}
+{% endblock %}

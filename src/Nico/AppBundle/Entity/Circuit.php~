@@ -22,35 +22,30 @@ class Circuit
 
     /**
     * @ORM\Column(name="creation_date", type="datetime")
-    * @Assert\NotBlank()
     * @Assert\DateTime()
     */
     private $date;
 
     /**
     * @ORM\Column(name="circuit_name", type="string")
-    * @Assert\NotBlank()
     * @Assert\Type(type="string")
     */
     private $name;
 
     /**
     * @ORM\Column(name="opening_hours", type="string")
-    * @Assert\NotBlank()
     * @Assert\Type(type="string")
     */
     private $hours;
 
     /**
     * @ORM\Column(name="licence", type="string")
-    * @Assert\NotBlank()
     * @Assert\Type(type="string")
     */
     private $licence;
 
     /**
-    * @ORM\Column(name="description", type="string")
-    * @Assert\NotBlank()
+    * @ORM\Column(name="description", type="text")
     * @Assert\Type(type="string")
     */
     private $description;
@@ -62,27 +57,22 @@ class Circuit
 
     /**
     * @ORM\Column(name="latitude", type="string")
-    * @Assert\NotBlank()
-    * @Assert\Type(type="string")
     */
     private $latitude;
 
     /**
     * @ORM\Column(name="longitude", type="string")
-    * @Assert\NotBlank()
-    * @Assert\Type(type="string")
     */
     private $longitude;
 
     /**
     * @ORM\Column(name="is_valid", type="boolean")
-    * @Assert\NotBlank()
     * @Assert\Type(type="bool")
     */
     private $isValid;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Nico\AppBundle\Entity\Owner", inversedBy="circuits")
+    * @ORM\ManyToOne(targetEntity="Nico\AppBundle\Entity\Owner", cascade={"persist"}, inversedBy="circuits")
     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
     */
     private $owner;
@@ -345,6 +335,8 @@ class Circuit
     {
         $this->owner = $owner;
 
+        $owner->addCircuit($this);
+
         return $this;
     }
 
@@ -356,5 +348,29 @@ class Circuit
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Circuit
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

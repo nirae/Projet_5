@@ -207,6 +207,7 @@ class CircuitManager
                 throw new NotFoundHttpException('Ce circuit n\'existe pas');
             }
 
+            dump($owner);
             // Création du lien de la page de modif
             $link = $this->router->generate(
                 'nico_app_page_update',
@@ -255,15 +256,6 @@ class CircuitManager
                     // Flush
                     $this->em->persist($circuit);
                     $this->em->flush();
-                    // Création lien de confirmation
-                    $link = $this->router->generate(
-                        'nico_app_confirmation',
-                        array(
-                            'id' => $circuit->getId(),
-                            'name' => $circuit->getName(),
-                        ),
-                        UrlGeneratorInterface::ABSOLUTE_URL
-                    );
                     // Envoyer mail de confirmation
                     $message = \Swift_Message::newInstance()
                     ->setSubject('Confirmation de modification de votre circuit')
@@ -271,7 +263,6 @@ class CircuitManager
                     ->setTo($email)
                     ->setBody(
                         $this->templating->render('NicoAppBundle:Email:confirmationUpdate.html.twig', array(
-                            'link' => $link,
                             'circuit' => $circuit,
                         )),
                         'text/html'
@@ -362,6 +353,19 @@ class CircuitManager
                 // Suppression
                 $this->em->remove($circuit);
                 $this->em->flush();
+                // Envoyer mail de confirmation
+                $message = \Swift_Message::newInstance()
+                ->setSubject('Confirmation de suppression de votre circuit')
+                ->setFrom('monspot@nicolasdubouilh.fr')
+                ->setTo($email)
+                ->setBody(
+                    $this->templating->render('NicoAppBundle:Email:confirmationDelete.html.twig', array(
+                        'circuit' => $circuit,
+                    )),
+                    'text/html'
+                );
+                // Envoi du message
+                $this->mailer->send($message);
                 // Flash message
                 $this->session->getFlashBag()->add('notice', 'Votre circuit à bien été supprimé');
                 // Redirection

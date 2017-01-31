@@ -69,15 +69,13 @@
         </div>
     </div>
     <div class="bloc-lien-fiche">
-        <div class="">
-            Vous êtes le propriétaire de cette fiche?
-        </div>
-        <div class="col-sm-12">
-            <a href="{{ updateLink }}">Modifier cette fiche</a>
-        </div>
-        <div class="col-sm-12">
-            <a href="{{ deleteLink }}">Supprimer cette fiche</a>
-        </div>
+        <p>
+            <em>
+                Vous êtes le propriétaire de ce circuit?
+                <a class="text-warning" href="{{ updateLink }}">Modifier</a>
+                <a class="text-danger" href="{{ deleteLink }}">Supprimer</a>
+            </em>
+        </p>
     </div>
 </div>
 {# End Contenu #}
